@@ -1,5 +1,6 @@
 body {
   font-family: 'Big Shoulders Text', cursive;
+  padding: 20px 60px;
 }
 .App {
   text-align: center;
@@ -23,3 +24,4 @@ body {
 .App-link {
   color: #09d3ac;
 }
+
