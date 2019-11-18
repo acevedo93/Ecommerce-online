@@ -5,8 +5,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 import ShopPageComponent from './pages/shoppage/ShopPage.component';
 import { Header} from './components/header/Header.component'
 import { SignInSIgnoutPage } from './pages/signIn-signOut/SignIn-SignOutPage.component';
-import { auth } from './firebase/firebase.utils'
-
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 
 const HatsPage = () => (
   <div>
@@ -24,9 +23,8 @@ class App extends Component {
   unsubscribeFromAuth = null
   componentDidMount () {
     // this connectios is forever open
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( user => {
-      console.log(user)
-      this.setState({currentUser: user})
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(  async user => {
+      createUserProfileDocument(user)
     })
   }
   componentWillUnmount() {
