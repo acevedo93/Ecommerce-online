@@ -24,7 +24,22 @@ class App extends Component {
   componentDidMount () {
     // this connectios is forever open
     this.unsubscribeFromAuth = auth.onAuthStateChanged(  async user => {
-      createUserProfileDocument(user)
+      if(user) {
+        const userRef = await createUserProfileDocument(user);
+        userRef.onSnapshot( snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+        },() => {
+          console.log(this.state)
+        })
+       })
+      } else {
+        this.setState({currentUser: user})
+      }
+      console.log(this.state);
     })
   }
   componentWillUnmount() {
